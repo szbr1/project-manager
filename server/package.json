@@ -1,0 +1,33 @@
+{
+  "name": "taskflow-server",
+  "version": "1.0.0",
+  "description": "Backend server for TaskFlow, a modern project and task management platform built with Express and TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx index.ts",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "project-management",
+    "task-manager",
+    "taskflow",
+    "express",
+    "backend",
+    "api",
+    "nodejs",
+    "typescript",
+    "server"
+  ],
+  "author": "Shahzaib Mirza",
+  "license": "ISC",
+  "packageManager": "pnpm@10.18.3",
+  "dependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
+  }
+}
