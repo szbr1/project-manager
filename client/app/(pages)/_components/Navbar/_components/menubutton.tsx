@@ -1,16 +1,16 @@
 "use client"
-import { setDarkMode, setToggleSwitch } from "@/store/global-states";
+import { setToggleSwitch } from "@/store/global-states";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import React from "react";
 import { IoMenu } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
 
 function Menu() {
 
-    const dispatch = useDispatch();
-    const isToggleMenu = useSelector(state => state.global.istoggleMenu)
+    const dispatch = useAppDispatch();
+    const isToggleMenu = useAppSelector(state => state.global.isToggleMenu)
   return (
     <button onClick={()=>{
-        dispatch(setToggleSwitch(!isToggleMenu))
+        dispatch(setToggleSwitch())
     }}>
       <IoMenu className="dark:text-white cursor-pointer" size={24} />
     </button>

@@ -1,8 +1,10 @@
+import { makeStore } from './store';
 import { configureStore } from "@reduxjs/toolkit";
 import { api as globalReducer } from "./services/api";
 import GlobalStates from "./global-states";
 import { persistStore, persistReducer } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const createNoopStorage = () => {
@@ -51,3 +53,12 @@ export const makeStore = () => {
 
   return store;
 };
+
+
+// Type saftey
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
