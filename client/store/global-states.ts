@@ -1,23 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DarkModeState {
-  isDarkMode: boolean; // dark mode ON/OFF
+  isDarkMode: boolean; 
+  isToggleMenu: boolean; 
 }
 
 const initialState: DarkModeState = {
   isDarkMode: false,
+  isToggleMenu: false
 };
 
 export const slice = createSlice({
-   name: "darkMode",
+   name: "global-states",
    initialState,
    reducers: {
      setDarkMode: (state) => {
         state.isDarkMode = !state.isDarkMode
+     },
+     setToggleSwitch: (state) => {
+      state.isToggleMenu = !state.isToggleMenu
      }
    }
 })
 
 
-export const {setDarkMode} = slice.actions;
+export const {setDarkMode, setToggleSwitch} = slice.actions;
 export default slice.reducer;

@@ -1,5 +1,5 @@
 "use client";
-import { setDarkMode } from "@/store/reduxSlicer";
+import { setDarkMode } from "@/store/global-states";
 import React, { useEffect } from "react";
 import { IoIosSettings } from "react-icons/io";
 import { IoMoonOutline, IoMoonSharp } from "react-icons/io5";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function DarkModeComponent() {
   const dispatch = useDispatch();
-  const isDarkMode = useSelector((state) => state.darkMode.isDarkMode);
+  const isDarkMode = useSelector((state) => state.condition.isDarkMode);
 
   useEffect(() => {
     if (isDarkMode) {
