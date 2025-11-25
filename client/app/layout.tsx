@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./global.css";
 
+import { FixProvider } from "@/store/Provider";
+import Navbar from "./(pages)/_components/navbar";
+import Sidebar from "./(pages)/_components/sidebar";
 export const metadata: Metadata = {
   title: "TaskFlow — Project & Task Management",
   description:
-    "A modern project management platform built with Next.js and TypeScript. Create projects, assign tasks, track progress.",
+  "A modern project management platform built with Next.js and TypeScript. Create projects, assign tasks, track progress.",
   keywords: [
     "Project Management",
     "Task Manager",
@@ -25,9 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <FixProvider>
+        <body className="flex mt-8">
+          <Sidebar />
+          <Navbar />
+          {children}
+        </body>
+      </FixProvider>
     </html>
   );
 }

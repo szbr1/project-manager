@@ -9,10 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.11.0",
     "@types/express": "^5.0.5",
+    "dotenv": "^17.2.3",
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-redux": "^9.2.0",
+    "redux-persist": "^6.0.0",
     "tsx": "^4.20.6"
   },
   "devDependencies": {
