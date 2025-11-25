@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./global.css";
 
 import { FixProvider } from "@/store/Provider";
-import Navbar from "./(pages)/_components/navbar";
+import Navbar from "./(pages)/_components/Navbar/navbar";
 import Sidebar from "./(pages)/_components/sidebar";
 export const metadata: Metadata = {
   title: "TaskFlow — Project & Task Management",

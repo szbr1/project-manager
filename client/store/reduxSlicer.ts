@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface DarkModeState {
-  isSelected: boolean; // dark mode ON/OFF
+  isDarkMode: boolean; // dark mode ON/OFF
 }
 
 const initialState: DarkModeState = {
-  isSelected: false,
+  isDarkMode: false,
 };
 
 export const slice = createSlice({
@@ -13,7 +13,7 @@ export const slice = createSlice({
    initialState,
    reducers: {
      setDarkMode: (state) => {
-        state.isSelected = !state.isSelected
+        state.isDarkMode = !state.isDarkMode
      }
    }
 })
