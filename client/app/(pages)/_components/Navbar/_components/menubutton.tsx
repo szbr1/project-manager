@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Menu() {
 
     const dispatch = useDispatch();
-    const isToggleMenu = useSelector(state => state.condition.istoggleMenu)
+    const isToggleMenu = useSelector(state => state.global.istoggleMenu)
   return (
     <button onClick={()=>{
         dispatch(setToggleSwitch(!isToggleMenu))

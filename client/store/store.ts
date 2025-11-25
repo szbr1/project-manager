@@ -2,13 +2,34 @@ import { configureStore } from "@reduxjs/toolkit";
 import { api as globalReducer } from "./services/api";
 import GlobalStates from "./global-states";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // uses localStorage
+import createWebStorage from "redux-persist/es/storage/createWebStorage";
+
+
+const createNoopStorage = () => {
+  return {
+    getItem(_key: string) {
+      return Promise.resolve(null);
+    },
+    setItem(_key: string, value: any) {
+      return Promise.resolve(value);
+    },
+    removeItem(_key: string) {
+      return Promise.resolve();
+    },
+  };
+};
+
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
+
 
 // Persist config
 const persistConfig = {
-  key: "root",
+  key: "global",
   storage,
-  whitelist: ["global"], // only persist the 'global' slice
+  whitelist: ["isDarkMode"], // only persist the 'global' slice
 };
 
 // Wrap your GlobalStates reducer with persistReducer
@@ -30,5 +51,3 @@ export const makeStore = () => {
 
   return store;
 };
-
-export const persistor = persistStore(makeStore());

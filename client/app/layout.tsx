@@ -28,15 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <FixProvider>
         <body className="flex">
+      <FixProvider>
           <Sidebar />
           <Navbar />
           <div className="h-full w-full mt-12">
             {children}
           </div>
-        </body>
       </FixProvider>
+        </body>
     </html>
   );
 }

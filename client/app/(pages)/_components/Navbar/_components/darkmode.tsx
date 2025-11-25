@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function DarkModeComponent() {
   const dispatch = useDispatch();
-  const isDarkMode = useSelector((state) => state.condition.isDarkMode);
+  const isDarkMode = useSelector((state) => state.global.isDarkMode);
 
   useEffect(() => {
     if (isDarkMode) {
