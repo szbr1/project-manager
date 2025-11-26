@@ -3,11 +3,11 @@ import "./global.css";
 
 import { FixProvider } from "@/store/Provider";
 import Navbar from "./(pages)/_components/Navbar/navbar";
-import Sidebar from "./(pages)/_components/sidebar";
+import Sidebar from "./(pages)/_components/Sidebar/sidebar";
 export const metadata: Metadata = {
   title: "TaskFlow — Project & Task Management",
   description:
-  "A modern project management platform built with Next.js and TypeScript. Create projects, assign tasks, track progress.",
+    "A modern project management platform built with Next.js and TypeScript. Create projects, assign tasks, track progress.",
   keywords: [
     "Project Management",
     "Task Manager",
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   creator: "Shahzaib Mirza",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,15 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <body className="flex">
-      <FixProvider>
+      <body className="flex dark:bg-zinc-900 dark:text-white overflow-hidden">
+        <FixProvider>
           <Sidebar />
           <Navbar />
-          <div className="h-full w-full mt-12">
-            {children}
-          </div>
-      </FixProvider>
-        </body>
+          <div className="h-full w-full mt-12">{children}</div>
+        </FixProvider>
+      </body>
     </html>
   );
 }

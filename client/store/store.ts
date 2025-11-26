@@ -1,4 +1,3 @@
-import { makeStore } from './store';
 import { configureStore } from "@reduxjs/toolkit";
 import { api as globalReducer } from "./services/api";
 import GlobalStates from "./global-states";
