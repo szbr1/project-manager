@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
 import morgan from 'morgan';
-import helmet from "helmet";
 // ROUTES IMPORTS 
-
+import Project from "./routes/project-routes"
+import Task from "./routes/task-routes"
+import helmet from "helmet";
 
 
 // CONFIGURATIONS 
@@ -19,7 +20,8 @@ app.use(cors({ origin: process.env.NEXT_CLIENT_URL }));
 
 // ROUTES ;
 
-
+app.use("/api/project", Project)
+app.use("/api/task", Task)
 
 // SERVER SETUP 
 const port = process.env.PORT || 8000;
