@@ -6,7 +6,9 @@ function List({
   setIsNewTaskPopUpOPen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
-    <div>List</div>
+    <div>
+      
+    </div>
   )
 }
 
