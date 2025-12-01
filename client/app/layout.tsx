@@ -3,7 +3,9 @@ import "./global.css";
 
 import { FixProvider } from "@/store/Provider";
 import Navbar from "./(pages)/_components/Navbar/navbar";
-import Sidebar from "./(pages)/_components/Sidebar/sidebar";
+import Sidebar from "./(pages)/_components/sidebar";
+import { DndProvider } from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend"
 export const metadata: Metadata = {
   title: "TaskFlow — Project & Task Management",
   description:
@@ -29,9 +31,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex dark:bg-zinc-900 dark:text-white overflow-hidden">
         <FixProvider>
+
           <Sidebar />
           <Navbar />
-          <div className="h-full w-full mt-12">{children}</div>
+          <div className="h-screen w-full mt-12">{children}</div>
         </FixProvider>
       </body>
     </html>

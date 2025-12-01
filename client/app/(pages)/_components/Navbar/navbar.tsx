@@ -12,7 +12,7 @@ import Menu from './_components/menubutton';
 function Navbar() {
 
   return (
-    <div className='w-full flex items-center px-4 justify-between bg-white dark:bg-zinc-900 absolute top-0 border-b border-gray-300 dark:border-zinc-700 '>
+    <div className='w-full flex items-center px-4 justify-between bg-light-green dark:bg-zinc-900 absolute top-0 border-b border-gray-300 dark:border-zinc-700 '>
       <div className='flex justify-center items-center gap-2'>
           {/* Menu Button  */}
            <Menu />
