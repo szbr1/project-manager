@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
-import morgan from 'morgan';
+import morgan from "morgan";
 // ROUTES IMPORTS 
 import Project from "./routes/project-routes"
 import Task from "./routes/task-routes"

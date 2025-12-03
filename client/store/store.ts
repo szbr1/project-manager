@@ -3,8 +3,7 @@ import { api as globalReducer } from "./services/api";
 import GlobalStates from "./global-states";
 import { persistStore, persistReducer } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from "react-redux";
 
 const createNoopStorage = () => {
   return {
@@ -24,7 +23,6 @@ const storage =
   typeof window !== "undefined"
     ? createWebStorage("local")
     : createNoopStorage();
-
 
 // Persist config
 const persistConfig = {
@@ -52,7 +50,6 @@ export const makeStore = () => {
 
   return store;
 };
-
 
 // Type saftey
 export type AppStore = ReturnType<typeof makeStore>;

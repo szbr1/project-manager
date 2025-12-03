@@ -1,13 +1,9 @@
-import React from 'react'
-
 function Timeline({
-  setIsNewTaskPopUpOPen,
+  setIsNewprojectPopUpOPen,
 }: {
-  setIsNewTaskPopUpOPen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsNewprojectPopUpOPen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  return (
-    <div>Timeline</div>
-  )
+  return <div>page</div>;
 }
 
-export default Timeline
+export default Timeline;

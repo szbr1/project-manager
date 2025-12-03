@@ -53,115 +53,115 @@ function Sidebar() {
           <RxCross2 size={22} className="cursor-pointer mx-3 dark:text-white" />
         </button>
       </div>
-    <div className="h-full w-full pb-8 py-5 overflow-y-auto sidebar">
-      {/*  SIDEBAR LINKS  */}
-      <div className="  flex flex-col ">
-        {SidebarLink.map((a, index) => {
-          const isActive = pathname === a.link;
+      <div className="h-full w-full pb-8 py-5 overflow-y-auto sidebar">
+        {/*  SIDEBAR LINKS  */}
+        <div className="  flex flex-col ">
+          {SidebarLink.map((a, index) => {
+            const isActive = pathname === a.link;
 
-          return (
-            <Link
-              href={a.link}
-              onClick={() => {
-                dispatch(setToggleSwitch());
-              }}
-              key={index++}
-              className={`flex justify-start items-end gap-2 px-4 py-[9px] w-full dark:text-white ${
-                isActive
-                  ? "bg-gray-100 border-l-3 border-green-300 text-orange-500 dark:bg-zinc-700"
-                  : null
-              }`}
+            return (
+              <Link
+                href={a.link}
+                onClick={() => {
+                  dispatch(setToggleSwitch());
+                }}
+                key={index++}
+                className={`flex justify-start items-end gap-2 px-4 py-[9px] w-full dark:text-white ${
+                  isActive
+                    ? "bg-gray-100 border-l-3 border-green-300 text-orange-500 dark:bg-zinc-700"
+                    : null
+                }`}
+              >
+                <a.icon size={20} />
+                <p>{a.name}</p>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="flex flex-col justify-center gap-3 py-3">
+          {/* PROJECTS */}
+          <div>
+            <div
+              onClick={() => setProjectsOpen(!isProjectsOpen)}
+              className="text-gray-500 dark:text-gray-500 text-xs px-4 flex justify-between items-center"
             >
-              <a.icon size={20} />
-              <p>{a.name}</p>
-            </Link>
-          );
-        })}
-      </div>
-      <div className="flex flex-col justify-center gap-3 py-3">
-        {/* PROJECTS */}
-        <div>
-          <div
-            onClick={() => setProjectsOpen(!isProjectsOpen)}
-            className="text-gray-500 dark:text-gray-500 text-xs px-4 flex justify-between items-center"
-          >
-            <p>Projects</p>
-            {isProjectsOpen ? (
-              <IoChevronUpOutline size={18} />
-            ) : (
-              <IoChevronDownOutline size={18} />
-            )}
+              <p>Projects</p>
+              {isProjectsOpen ? (
+                <IoChevronUpOutline size={18} />
+              ) : (
+                <IoChevronDownOutline size={18} />
+              )}
+            </div>
+            <div className="  flex flex-col ">
+              {isProjectsOpen &&
+                projects?.map((a, index) => {
+                  const isActive = pathname === `/projects/${a.id}`;
+                  return (
+                    <Link
+                      href={`/projects/${a.id}`}
+                      onClick={() => {
+                        dispatch(setToggleSwitch());
+                      }}
+                      key={index++}
+                      className={`flex justify-start items-end gap-2 px-4 py-[9px] w-full dark:text-white ${
+                        isActive
+                          ? "bg-gray-100 border-l-3 border-green-300 text-orange-500 dark:bg-zinc-700"
+                          : null
+                      }`}
+                    >
+                      <FaBagShopping size={20} />
+                      <p>{a.name}</p>
+                    </Link>
+                  );
+                })}
+            </div>
           </div>
-          <div className="  flex flex-col ">
-            {isProjectsOpen &&
-              projects?.map((a, index) => {
-                const isActive = pathname === `/projects/${a.id}`;
-                return (
-                  <Link
-                    href={`/projects/${a.id}`}
-                    onClick={() => {
-                      dispatch(setToggleSwitch());
-                    }}
-                    key={index++}
-                    className={`flex justify-start items-end gap-2 px-4 py-[9px] w-full dark:text-white ${
-                      isActive
-                        ? "bg-gray-100 border-l-3 border-green-300 text-orange-500 dark:bg-zinc-700"
-                        : null
-                    }`}
-                  >
-                    <FaBagShopping size={20} />
-                    <p>{a.name}</p>
-                  </Link>
-                );
-              })}
-          </div>
-        </div>
 
-        {/*  PRIORITY  */}
-        <div>
-          <div
-            onClick={() => {
-              console.log("run");
-              setPriorityOpen(!isPriorityOpen);
-            }}
-            className="text-gray-500 dark:text-gray-500 text-xs px-4 flex justify-between items-center"
-          >
-            <p>Priority</p>
-            {isPriorityOpen ? (
-              <IoChevronUpOutline size={18} />
-            ) : (
-              <IoChevronDownOutline size={18} />
-            )}
-          </div>
-          <div className="  flex flex-col ">
-            {isPriorityOpen &&
-              SidebarPriority.map((a, index) => {
-                const isActive = pathname === a.link;
+          {/*  PRIORITY  */}
+          <div>
+            <div
+              onClick={() => {
+                console.log("run");
+                setPriorityOpen(!isPriorityOpen);
+              }}
+              className="text-gray-500 dark:text-gray-500 text-xs px-4 flex justify-between items-center"
+            >
+              <p>Priority</p>
+              {isPriorityOpen ? (
+                <IoChevronUpOutline size={18} />
+              ) : (
+                <IoChevronDownOutline size={18} />
+              )}
+            </div>
+            <div className="  flex flex-col ">
+              {isPriorityOpen &&
+                SidebarPriority.map((a, index) => {
+                  const isActive = pathname === a.link;
 
-                return (
-                  <Link
-                    href={a.link}
-                    onClick={() => {
-                      dispatch(setToggleSwitch());
-                    }}
-                    key={index++}
-                    className={`flex justify-start items-end gap-2 px-4 py-[9px] w-full dark:text-white ${
-                      isActive
-                        ? "bg-gray-100 border-l-3 border-green-300 text-orange-500 dark:bg-zinc-700"
-                        : null
-                    }`}
-                  >
-                    <a.icon size={20} />
-                    <p>{a.name}</p>
-                  </Link>
-                );
-              })}
+                  return (
+                    <Link
+                      href={a.link}
+                      onClick={() => {
+                        dispatch(setToggleSwitch());
+                      }}
+                      key={index++}
+                      className={`flex justify-start items-end gap-2 px-4 py-[9px] w-full dark:text-white ${
+                        isActive
+                          ? "bg-gray-100 border-l-3 border-green-300 text-orange-500 dark:bg-zinc-700"
+                          : null
+                      }`}
+                    >
+                      <a.icon size={20} />
+                      <p>{a.name}</p>
+                    </Link>
+                  );
+                })}
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </aside>
   );
 }
- 
+
 export default Sidebar;

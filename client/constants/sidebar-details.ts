@@ -1,9 +1,14 @@
-// SIDEBAR LINKS IMPORTS 
-import { HiOutlineHome, HiOutlineBriefcase, HiOutlineUser, HiOutlineUsers  } from "react-icons/hi2";
+// SIDEBAR LINKS IMPORTS
+import {
+  HiOutlineHome,
+  HiOutlineBriefcase,
+  HiOutlineUser,
+  HiOutlineUsers,
+} from "react-icons/hi2";
 import { BsGear } from "react-icons/bs";
 import { GoSearch } from "react-icons/go";
 
-// SIDEBAR PRIORITY IMPORTS 
+// SIDEBAR PRIORITY IMPORTS
 import { CiCircleAlert } from "react-icons/ci";
 import { HiOutlineShieldExclamation } from "react-icons/hi2";
 import { GoAlert } from "react-icons/go";
@@ -14,61 +19,59 @@ export const SidebarLink = [
   {
     name: "Home",
     link: "/",
-    icon: HiOutlineHome
+    icon: HiOutlineHome,
   },
   {
     name: "Timeline",
     link: "/timeline",
-    icon: HiOutlineBriefcase
+    icon: HiOutlineBriefcase,
   },
   {
     name: "Search",
     link: "/search",
-    icon: GoSearch
+    icon: GoSearch,
   },
   {
     name: "Settings",
     link: "/settings",
-    icon: BsGear
+    icon: BsGear,
   },
   {
     name: "Users",
     link: "/users",
-    icon: HiOutlineUser
+    icon: HiOutlineUser,
   },
   {
     name: "Teams",
     link: "/teams",
-    icon: HiOutlineUsers
-  }
-] as const
-
+    icon: HiOutlineUsers,
+  },
+] as const;
 
 export const SidebarPriority = [
   {
     name: "Urgent",
     link: "/priority/urgent",
-    icon: CiCircleAlert
+    icon: CiCircleAlert,
   },
   {
     name: "High",
     link: "/priority/high",
-    icon: HiOutlineShieldExclamation
+    icon: HiOutlineShieldExclamation,
   },
-   {
+  {
     name: "Medium",
     link: "/priority/medium",
-    icon: GoAlert
+    icon: GoAlert,
   },
   {
     name: "low",
     link: "/priority/low",
-    icon: FiAlertOctagon
+    icon: FiAlertOctagon,
   },
   {
     name: "Backlog",
     link: "/priority/backlog",
-    icon: LuLayers
+    icon: LuLayers,
   },
-  
-]
+];

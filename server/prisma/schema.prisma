@@ -58,15 +58,15 @@ model Task {
   status         String?
   priority       String?
   tags           String?
-  startDate      DateTime?
-  dueDate        DateTime?
+  startDate      String?
+  dueDate        String?
   points         Int?
-  projectId      Int
-  authorUserId   Int
+  projectId      Int?
+  authorUserId   Int?
   assignedUserId Int?
 
-  project         Project          @relation(fields: [projectId], references: [id])
-  author          User             @relation("TaskAuthor", fields: [authorUserId], references: [userId])
+  project         Project?          @relation(fields: [projectId], references: [id])
+  author          User?             @relation("TaskAuthor", fields: [authorUserId], references: [userId])
   assignee        User?            @relation("TaskAssignee", fields: [assignedUserId], references: [userId])
   taskAssignments TaskAssignment[]
   attachments     Attachment[]

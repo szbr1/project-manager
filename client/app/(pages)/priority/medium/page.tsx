@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Page() {
-  return (
-    <div>Medium</div>
-  )
+  return <div>Medium</div>;
 }
 
-export default Page
+export default Page;

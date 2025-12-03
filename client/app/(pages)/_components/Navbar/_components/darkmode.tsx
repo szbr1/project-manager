@@ -6,7 +6,7 @@ import { IoMoonOutline, IoMoonSharp } from "react-icons/io5";
 import { IoPartlySunnyOutline } from "react-icons/io5";
 function DarkModeComponent() {
   const dispatch = useAppDispatch();
-  const isDarkMode = useAppSelector(state => state.global.isDarkMode)
+  const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -26,9 +26,15 @@ function DarkModeComponent() {
   return (
     <button className="cursor-pointer" onClick={toggleTheme}>
       {isDarkMode ? (
-        <IoMoonOutline className="dark:text-white transform transition-opacity duration-500" size={22} />
+        <IoMoonOutline
+          className="dark:text-white transform transition-opacity duration-500"
+          size={22}
+        />
       ) : (
-        <IoPartlySunnyOutline className="dark:text-white transform transition-opacity duration-500" size={22} />
+        <IoPartlySunnyOutline
+          className="dark:text-white transform transition-opacity duration-500"
+          size={22}
+        />
       )}
     </button>
   );

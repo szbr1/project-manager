@@ -51,7 +51,7 @@ const MenuButton = ({ name, Icon, setTab, Tab }: MenuButtonTypes) => {
         className={cn(
           name === Tab &&
             "relative after:content-[''] after:absolute after:left-0 after:w-full after:h-0.5 after:bg-amber-600 after:-bottom-[9px] md:after:-bottom-3",
-          "center gap-2 cursor-pointer"
+          "center gap-2 cursor-pointer",
         )}
         onClick={() => setTab(name)}
       >

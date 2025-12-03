@@ -17,7 +17,7 @@ export const getTasks = async (req: Request, res: Response) => {
     console.log("tasks fetched successfully");
     return res
       .status(200)
-      .json({ message: "tasks fetched successfully", data });
+      .json(data);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "unable to fetch tasks" });
@@ -56,7 +56,7 @@ export const createTask = async (req: Request, res: Response) => {
       },
     });
     console.log("task created successfully");
-    return res.status(200).json({ message: "task created successfully", data });
+    return res.status(200).json(data);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "unbale to create task" });
@@ -81,7 +81,7 @@ export const updateTask = async (req: Request, res: Response) => {
     console.log("tasks updated successfully");
     return res
       .status(200)
-      .json({ message: "task updated successfully", data });
+      .json(data);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "unable to update task" });

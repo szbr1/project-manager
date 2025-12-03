@@ -1,26 +1,27 @@
-"use client"
-import { useGetTasksQuery } from '@/store/services/api';
-import Image from 'next/image';
-import { useParams } from 'next/navigation';
-import React from 'react'
+"use client";
+import { useGetTasksQuery } from "@/store/services/api";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import React from "react";
 
 function List({
   setIsNewTaskPopUpOPen,
 }: {
   setIsNewTaskPopUpOPen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { id } = useParams<{ id: string }>();
 
-    const { id } = useParams<{ id: string }>();
-  
-  const {data: tasks, isError, isLoading} = useGetTasksQuery({projectId: id});
-
+  const {
+    data: tasks,
+    isError,
+    isLoading,
+  } = useGetTasksQuery({ projectId: id });
 
   return (
-     <div className="px-3">
+    <div className="px-3">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
         {tasks &&
           tasks.map((task) => {
-           
             return (
               <div
                 className="border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-4 rounded-xl shadow-sm hover:shadow-md transition-all "
@@ -40,13 +41,16 @@ function List({
                 {/* User Info */}
                 <div className="flex items-center gap-4 mt-3">
                   <div className="flex items-center gap-2">
-                    <Image
-                      src={task.assignee && task.assignee.profilePictureUrl &&`/${task.assignee.profilePictureUrl}`}
-                      height={30}
-                      width={30}
-                      className="rounded-full size-10"
-                      alt="Assignee"
-                    />
+                    {task.assignee && task.assignee.profilePictureUrl && (
+                      <Image
+                        src={`/${task.assignee.profilePictureUrl}`}
+                        height={30}
+                        width={30}
+                        className="rounded-full size-10"
+                        alt="Assignee"
+                      />
+                    )}
+
                     <p className="text-sm">
                       <span className="text-gray-500">Assigned to:</span>{" "}
                       <span className="font-medium">
@@ -56,13 +60,16 @@ function List({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Image
-                      src={task.author && task.author.profilePictureUrl && `/${task.author.profilePictureUrl}`}
-                      height={30}
-                      width={30}
-                      className="rounded-full size-10"
-                      alt="Author"
-                    />
+                    {task.author && task.author.profilePictureUrl && (
+                      <Image
+                        src={`/${task.author.profilePictureUrl}`}
+                        height={30}
+                        width={30}
+                        className="rounded-full size-10"
+                        alt="Author"
+                      />
+                    )}
+
                     <p className="text-sm">
                       <span className="text-gray-500">Author:</span>{" "}
                       <span className="font-medium">
@@ -99,21 +106,23 @@ function List({
                 {task.attachments && task.attachments?.length > 0 && (
                   <div className="mt-4">
                     <p className="text-sm text-gray-500">Attachment:</p>
-
-                    <Image
-                      className="rounded-md mt-2 border border-gray-200 dark:border-zinc-700"
-                      src={`/${task.attachments[0].fileURL}`}
-                      height={70}
-                      width={70}
-                      alt="Attachment"
-                    />
+                    {task.attachments && (
+                      <Image
+                        className="rounded-md mt-2 border border-gray-200 dark:border-zinc-700"
+                        src={`/${task.attachments[0].fileURL}`}
+                        height={70}
+                        width={70}
+                        alt="Attachment"
+                      />
+                    )}
                   </div>
                 )}
               </div>
             );
           })}
       </div>
-    </div>)
+    </div>
+  );
 }
 
-export default List
+export default List;

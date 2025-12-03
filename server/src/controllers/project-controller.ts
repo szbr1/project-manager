@@ -6,7 +6,7 @@ export const getProjects = async (req: Request, res: Response) => {
     const data = await prisma.project.findMany();
     return res
       .status(200)
-      .json({ message: "projects fetched successfully", data });
+      .json(data);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "unable to fetch projects" });
@@ -25,7 +25,7 @@ export const createProject = async (req: Request, res: Response) => {
       },
     });
     console.log("successfully created");
-    return res.status(200).json({ message: "project created successfully.", data });
+    return res.status(200).json(data);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "unable to crate project" });
