@@ -24,7 +24,6 @@ function Table({
   const { id } = useParams<{ id: string }>();
   const { data: tasks } = useGetTasksQuery({ projectId: id });
 
-  console.log("tasks", tasks);
 
   return (
     <div>
@@ -42,7 +41,6 @@ function Table({
           <TableBody>
             {tasks &&
               tasks.map((task, index) => {
-                console.log(task, "-----");
                 return (
                   <TableRow key={index}>
                     <TableCell className="font-semibold text-gray-800 dark:text-zinc-200">

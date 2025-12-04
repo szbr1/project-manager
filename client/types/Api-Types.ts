@@ -70,3 +70,12 @@ export interface Team {
   productOwnerUserId?: number;
   projectManagerUserId?: number;
 }
+
+export interface AdminDetailsTeam {
+  id: string | number;
+  teamName: string;
+  productOwnerUserId: string | number;
+  projectManagerUserId: string | number;
+  teamProductOwner: { username: string };
+  teamProductManager: { username: string };
+}

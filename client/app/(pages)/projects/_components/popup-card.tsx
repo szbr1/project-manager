@@ -23,7 +23,6 @@ import {
   SelectValue,
   SelectContent,
 } from "@/components/ui/select";
-import { Priority } from "@/types/Api-Types";
 
 interface PopupcardProps {
   title: string;
@@ -213,9 +212,6 @@ function PopupCard({
             {createProject && (
               <Button
                 className="py-2"
-                onClick={() => {
-                  console.log(projectDetails);
-                }}
               >
                 {buttonText}
               </Button>
@@ -225,9 +221,7 @@ function PopupCard({
             {createTask && (
               <Button
                 className="py-2"
-                onClick={() => {
-                  console.log(taskDetails);
-                }}
+               
               >
                 {buttonText}
               </Button>

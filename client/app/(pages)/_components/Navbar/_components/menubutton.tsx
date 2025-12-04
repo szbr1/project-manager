@@ -1,12 +1,10 @@
 "use client";
 import { setToggleSwitch } from "@/store/global-states";
-import { useAppDispatch, useAppSelector } from "@/store/store";
-import React from "react";
+import { useAppDispatch } from "@/store/store";
 import { IoMenu } from "react-icons/io5";
 
 function Menu() {
   const dispatch = useAppDispatch();
-  const isToggleMenu = useAppSelector((state) => state.global.isToggleMenu);
   return (
     <button
       onClick={() => {

@@ -2,20 +2,20 @@
 import { useGetTasksQuery } from "@/store/services/api";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import React from "react";
 
-function List({
-  setIsNewTaskPopUpOPen,
-}: {
-  setIsNewTaskPopUpOPen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function List() {
   const { id } = useParams<{ id: string }>();
-
   const {
     data: tasks,
     isError,
     isLoading,
   } = useGetTasksQuery({ projectId: id });
+
+   if(isLoading){
+    return <div className="flex justify-center items-center size-full">Loading...</div>
+  }else if(isError){
+    return <div className="flex justify-center items-center size-full">Error While Fetching Date.</div>
+  }
 
   return (
     <div className="px-3">

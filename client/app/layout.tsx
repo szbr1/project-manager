@@ -4,8 +4,6 @@ import "./global.css";
 import { FixProvider } from "@/store/Provider";
 import Navbar from "./(pages)/_components/Navbar/navbar";
 import Sidebar from "./(pages)/_components/sidebar";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 export const metadata: Metadata = {
   title: "TaskFlow — Project & Task Management",
   description:

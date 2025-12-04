@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { api as globalReducer } from "./services/api";
 import GlobalStates from "./global-states";
-import { persistStore, persistReducer } from "redux-persist";
+import { persistReducer } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -10,7 +10,7 @@ const createNoopStorage = () => {
     getItem(_key: string) {
       return Promise.resolve(null);
     },
-    setItem(_key: string, value: any) {
+    setItem(_key: string, value: unknown) {
       return Promise.resolve(value);
     },
     removeItem(_key: string) {

@@ -1,4 +1,3 @@
-import { StatusType } from "@/types/types";
 export type MenuTypes = "Board" | "List" | "Timeline" | "Table";
 export type StatusType =
   | "Work In Progress"

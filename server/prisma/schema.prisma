@@ -1,13 +1,11 @@
-
 generator client {
   provider = "prisma-client"
-  output = "../src/generate"
+  output   = "../src/generate"
 }
 
 datasource db {
   provider = "postgresql"
 }
-
 
 model User {
   userId            Int     @id @default(autoincrement())
@@ -52,7 +50,7 @@ model ProjectTeam {
 }
 
 model Task {
-  id             Int       @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   title          String
   description    String?
   status         String?
@@ -65,8 +63,8 @@ model Task {
   authorUserId   Int?
   assignedUserId Int?
 
-  project         Project?          @relation(fields: [projectId], references: [id])
-  author          User?             @relation("TaskAuthor", fields: [authorUserId], references: [userId])
+  project         Project?         @relation(fields: [projectId], references: [id])
+  author          User?            @relation("TaskAuthor", fields: [authorUserId], references: [userId])
   assignee        User?            @relation("TaskAssignee", fields: [assignedUserId], references: [userId])
   taskAssignments TaskAssignment[]
   attachments     Attachment[]

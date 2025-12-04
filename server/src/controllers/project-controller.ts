@@ -24,7 +24,6 @@ export const createProject = async (req: Request, res: Response) => {
         startDate,
       },
     });
-    console.log("successfully created");
     return res.status(200).json(data);
   } catch (error) {
     console.error(error);

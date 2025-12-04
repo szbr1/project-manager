@@ -15,7 +15,6 @@ import { useGetProjectsQuery } from "@/store/services/api";
 import { FaBagShopping } from "react-icons/fa6";
 
 function Sidebar() {
-  const [isProjectsSectionOpen, setProjectsSection] = useState(false);
   const [isProjectsOpen, setProjectsOpen] = useState(false);
   const [isPriorityOpen, setPriorityOpen] = useState(false);
   const pathname = usePathname();
@@ -121,7 +120,7 @@ function Sidebar() {
           <div>
             <div
               onClick={() => {
-                console.log("run");
+             
                 setPriorityOpen(!isPriorityOpen);
               }}
               className="text-gray-500 dark:text-gray-500 text-xs px-4 flex justify-between items-center"

@@ -14,7 +14,6 @@ export const getTasks = async (req: Request, res: Response) => {
         comments: true,
       },
     });
-    console.log("tasks fetched successfully");
     return res
       .status(200)
       .json(data);
@@ -55,7 +54,6 @@ export const createTask = async (req: Request, res: Response) => {
         tags,
       },
     });
-    console.log("task created successfully");
     return res.status(200).json(data);
   } catch (error) {
     console.error(error);
@@ -78,7 +76,6 @@ export const updateTask = async (req: Request, res: Response) => {
         status
       }
     });
-    console.log("tasks updated successfully");
     return res
       .status(200)
       .json(data);

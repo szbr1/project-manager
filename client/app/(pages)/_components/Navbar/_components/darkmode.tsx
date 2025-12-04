@@ -1,8 +1,8 @@
 "use client";
 import { setDarkMode } from "@/store/global-states";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import React, { useEffect } from "react";
-import { IoMoonOutline, IoMoonSharp } from "react-icons/io5";
+import { useEffect } from "react";
+import { IoMoonOutline,  } from "react-icons/io5";
 import { IoPartlySunnyOutline } from "react-icons/io5";
 function DarkModeComponent() {
   const dispatch = useAppDispatch();
@@ -17,7 +17,6 @@ function DarkModeComponent() {
   }, [isDarkMode]);
 
   const toggleTheme = () => {
-    console.log("clicked");
     document.documentElement.classList.add("dark");
 
     dispatch(setDarkMode());

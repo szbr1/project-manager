@@ -1,13 +1,14 @@
-import { Project, Task } from "@/types/Api-Types";
+import { AdminDetailsTeam, Project, Task, Team, User } from "@/types/Api-Types";
 import { StatusType } from "@/types/types";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import build from "next/dist/build";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_API_BASE_URL,
   }),
-  tagTypes: ["Projects", "Tasks"],
+  tagTypes: ["Projects", "Tasks", "Users", "Teams"],
 
   endpoints: (build) => ({
     // FETCH LIST OF PROJECTS
@@ -60,7 +61,31 @@ export const api = createApi({
       }),
       invalidatesTags: (result, error, { id }) => [{ type: "Tasks", id }],
     }),
+    
+    // SEARCH TASK 
+    searchTask: build.mutation<Task[], {searchTask:string}>({
+      
+      query: ({searchTask})=> {
+        return{ body: {searchTask},
+        url: "api/search/searchTask",
+        method: "POST" }
+      },
+      invalidatesTags: (result, error, { searchTask }) => [{ type: "Tasks", searchTask }],
+    }),
+
+    // GET USERS 
+    getAllUsers : build.query<User[], void>({
+      query: ()=> "api/user/getAllUsers",
+      providesTags: ["Users"]
+    }),
+
+    // GET TEAMS
+    getTeams : build.query<AdminDetailsTeam[],void>({
+      query: ()=>"api/team/getTeams",
+      providesTags: ["Teams"]
+    })
   }),
+ 
 });
 
 export const {
@@ -69,4 +94,7 @@ export const {
   useCreateProjectMutation,
   useCreateTaskMutation,
   useUpdateTaskMutation,
+  useSearchTaskMutation,
+  useGetAllUsersQuery,
+  useGetTeamsQuery
 } = api;

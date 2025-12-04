@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import DarkModeComponent from "./_components/darkmode";
 import { IoIosSettings } from "react-icons/io";
 import Menu from "./_components/menubutton";
