@@ -1,6 +1,10 @@
+import { Priority } from "@/types/Api-Types";
+import PriorityPage from "../../_components/priority-page";
 
 function Page() {
-  return <div>Medium</div>;
+  return <div>
+    <PriorityPage priority={Priority.Medium} />
+  </div>;
 }
 
 export default Page;

@@ -1,4 +1,4 @@
-import { getTasks, createTask,updateTask, getAllTasks } from './../controllers/task-controller';
+import { getTasks, createTask,updateTask, getAllTasks, getUserTasks } from './../controllers/task-controller';
 import type { Router } from "express";
 import express from "express";
 
@@ -10,6 +10,7 @@ route.get("/getTasks", getTasks);
 route.post("/createTask", createTask);
 route.patch("/:taskId/updateTask", updateTask)
 route.get("/getAllTasks", getAllTasks)
+route.get("/:userId/getUserTasks", getUserTasks)
 
 
 export default route; 

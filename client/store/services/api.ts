@@ -48,10 +48,9 @@ export const api = createApi({
 
     // FETCH ALL THE TASKS
     getAllTasks: build.query<AllTasks[], void>({
-       query: () => "api/task/getAllTasks",
-       providesTags: ["AllTasks"]
-      }
-    ),
+      query: () => "api/task/getAllTasks",
+      providesTags: ["AllTasks"],
+    }),
 
     //  CREATE ONE TASK
     createTask: build.mutation<Task, Partial<Task>>({
@@ -93,6 +92,10 @@ export const api = createApi({
       },
     }),
 
+    getUserTasks: build.query<Task[], { userId: number }>({
+      query: ({userId}) => `api/task/${userId}/getUserTasks`,
+    }),
+
     // SEARCH TASK
     searchTask: build.mutation<Task[], { searchTask: string }>({
       query: ({ searchTask }) => {
@@ -131,4 +134,5 @@ export const {
   useGetAllUsersQuery,
   useGetTeamsQuery,
   useGetAllTasksQuery,
+  useGetUserTasksQuery,
 } = api;
