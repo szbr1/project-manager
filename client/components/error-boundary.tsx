@@ -1,5 +1,5 @@
 "use client"
-import { Component, ErrorInfo } from "react";
+import React, { Component, ErrorInfo } from "react";
 import { Button } from "./ui/button";
 
 interface Props {
@@ -76,4 +76,4 @@ class ErrorBoundary extends Component<Props, State>{
 
 }
 
-export default ErrorBoundary;
+export default React.memo(ErrorBoundary);

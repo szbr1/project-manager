@@ -13,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   CreateProjectInterface,
   CreateTaskInterface,
-  StatusType,
 } from "@/types/types";
 import {
   Select,
@@ -23,6 +22,7 @@ import {
   SelectValue,
   SelectContent,
 } from "@/components/ui/select";
+import { Status } from "@/types/Api-Types";
 
 interface PopupcardProps {
   title: string;
@@ -143,7 +143,7 @@ function PopupCard({
                 onValueChange={(value) =>
                   setTaskDetails((prev) => ({
                     ...prev,
-                    status: value as StatusType,
+                    status: value as Status,
                   }))
                 }
               >

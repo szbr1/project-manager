@@ -1,14 +1,18 @@
-import { AdminDetailsTeam, Project, Task, Team, User } from "@/types/Api-Types";
-import { StatusType } from "@/types/types";
+import {
+  AdminDetailsTeam,
+  Project,
+  Status,
+  Task,
+  User,
+} from "@/types/Api-Types";
+import { AllTasks } from "@/types/types";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import build from "next/dist/build";
-
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_API_BASE_URL,
   }),
-  tagTypes: ["Projects", "Tasks", "Users", "Teams"],
+  tagTypes: ["Projects", "Tasks", "Users", "Teams", "AllTasks"],
 
   endpoints: (build) => ({
     // FETCH LIST OF PROJECTS
@@ -33,14 +37,21 @@ export const api = createApi({
       invalidatesTags: ["Projects"],
     }),
 
-    //  FETCH LIST OF TASKS
-    getTasks: build.query<Task[], { projectId: string }>({
+    //  FETCH TASKS
+    getTasks: build.query<Task[], { projectId: number }>({
       query: ({ projectId }) => `api/task/getTasks?projectId=${projectId}`,
       providesTags: (result: Task[] | undefined) =>
         result
           ? [...result.map(({ id }) => ({ type: "Tasks" as const, id }))]
           : ["Tasks"],
     }),
+
+    // FETCH ALL THE TASKS
+    getAllTasks: build.query<AllTasks[], void>({
+       query: () => "api/task/getAllTasks",
+       providesTags: ["AllTasks"]
+      }
+    ),
 
     //  CREATE ONE TASK
     createTask: build.mutation<Task, Partial<Task>>({
@@ -53,39 +64,61 @@ export const api = createApi({
     }),
 
     // UPDATE ONE TASK DRAG
-    updateTask: build.mutation<Task, { id: number; status: StatusType }>({
+    updateTask: build.mutation<
+      Task,
+      { id: number; status: Status; projectId: number }
+    >({
       query: ({ id, status }) => ({
         url: `api/task/${id}/updateTask`,
         body: { status },
         method: "PATCH",
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: "Tasks", id }],
-    }),
-    
-    // SEARCH TASK 
-    searchTask: build.mutation<Task[], {searchTask:string}>({
-      
-      query: ({searchTask})=> {
-        return{ body: {searchTask},
-        url: "api/search/searchTask",
-        method: "POST" }
+      async onQueryStarted(
+        { id, status, projectId },
+        { dispatch, queryFulfilled },
+      ) {
+        const patchUpdate = dispatch(
+          api.util.updateQueryData("getTasks", { projectId }, (draft) => {
+            const task = draft.find((t) => t.id == id);
+            if (task) {
+              task.status = status;
+            }
+          }),
+        );
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          patchUpdate.undo();
+        }
       },
-      invalidatesTags: (result, error, { searchTask }) => [{ type: "Tasks", searchTask }],
     }),
 
-    // GET USERS 
-    getAllUsers : build.query<User[], void>({
-      query: ()=> "api/user/getAllUsers",
-      providesTags: ["Users"]
+    // SEARCH TASK
+    searchTask: build.mutation<Task[], { searchTask: string }>({
+      query: ({ searchTask }) => {
+        return {
+          body: { searchTask },
+          url: "api/search/searchTask",
+          method: "POST",
+        };
+      },
+      invalidatesTags: (result, error, { searchTask }) => [
+        { type: "Tasks", searchTask },
+      ],
+    }),
+
+    // GET USERS
+    getAllUsers: build.query<User[], void>({
+      query: () => "api/user/getAllUsers",
+      providesTags: ["Users"],
     }),
 
     // GET TEAMS
-    getTeams : build.query<AdminDetailsTeam[],void>({
-      query: ()=>"api/team/getTeams",
-      providesTags: ["Teams"]
-    })
+    getTeams: build.query<AdminDetailsTeam[], void>({
+      query: () => "api/team/getTeams",
+      providesTags: ["Teams"],
+    }),
   }),
- 
 });
 
 export const {
@@ -96,5 +129,6 @@ export const {
   useUpdateTaskMutation,
   useSearchTaskMutation,
   useGetAllUsersQuery,
-  useGetTeamsQuery
+  useGetTeamsQuery,
+  useGetAllTasksQuery,
 } = api;

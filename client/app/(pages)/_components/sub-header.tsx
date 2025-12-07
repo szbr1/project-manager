@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { MenuTypes } from "@/types/types";
+import React from "react";
 import { BsGrid3X3 } from "react-icons/bs";
 import {
   CiBoxList,
@@ -62,4 +63,4 @@ const MenuButton = ({ name, Icon, setTab, Tab }: MenuButtonTypes) => {
   );
 };
 
-export default SubHeader;
+export default React.memo(SubHeader);

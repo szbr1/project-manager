@@ -61,10 +61,6 @@ export const createTask = async (req: Request, res: Response) => {
   }
 };
 
-
-
-
-
 export const updateTask = async (req: Request, res: Response) => {
   try {
     const {status} = req.body;
@@ -82,5 +78,18 @@ export const updateTask = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "unable to update task" });
+  }
+};
+
+export const getAllTasks = async (req: Request, res: Response) => {
+  try {
+
+    const data = await prisma.task.findMany({select: {id: true, status: true, priority: true}})
+    return res
+      .status(200)
+      .json(data);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Unable To Fetch Tasks" });
   }
 };

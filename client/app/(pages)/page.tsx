@@ -1,13 +1,22 @@
-"use client";
-import { useGetTasksQuery } from "@/store/services/api";
+import { TasksBarChart } from "./_components/tasks-bar-chart";
+import { TaskPieChart } from "./_components/tasks-pie-chart";
+import TasksTable from "./_components/tasks-table";
 
 function Page() {
-  const { data, isSuccess } = useGetTasksQuery({ projectId: "1" });
+  
 
   return (
-    <div className="min-h-screen w-full p-2 bg-white text-black dark:bg-zinc-900 dark:text-zinc-100">
-      Home
-    </div>
+    <div className="h-[calc(100vh-60px)] grid grid-cols-1 lg:grid-cols-2 gap-8 w-full p-2 overflow-y-auto bg-white text-black dark:bg-zinc-900 dark:text-zinc-100">
+  <div className="h-full">
+    <TaskPieChart />
+  </div>
+  <div className="h-full">
+    <TasksBarChart />
+  </div>
+  <div className="lg:col-span-2 h-full">
+    <TasksTable />
+  </div>
+</div>
   );
 }
 

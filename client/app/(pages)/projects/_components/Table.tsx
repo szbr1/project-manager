@@ -15,6 +15,7 @@ import { useGetTasksQuery } from "@/store/services/api";
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { TASK_STATUS_BG } from "@/constants/tasks";
 
 function Table({
   setIsNewtaskojectPopUpOPen,
@@ -55,10 +56,7 @@ function Table({
                       <span
                         className={cn(
                           "lowercase rounded-full w-[70px]  px-2 py-0.5   dark:text-black",
-                          task.status === "Completed" && "bg-green-200",
-                          task.status === "To Do" && "bg-amber-200",
-                          task.status === "Under Review" && "bg-pink-200",
-                          task.status === "Work In Progress" && "bg-indigo-200",
+                           task.status && TASK_STATUS_BG[task.status]
                         )}
                       >
                         {task.status}
@@ -89,4 +87,4 @@ function Table({
   );
 }
 
-export default Table;
+export default React.memo(Table);

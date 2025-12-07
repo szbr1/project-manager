@@ -1,9 +1,6 @@
+import { Priority, Status } from "./Api-Types";
+
 export type MenuTypes = "Board" | "List" | "Timeline" | "Table";
-export type StatusType =
-  | "Work In Progress"
-  | "To Do"
-  | "Completed"
-  | "Under Review";
 
 export interface CreateProjectInterface {
   name: string;
@@ -17,7 +14,14 @@ export interface CreateTaskInterface {
   description: string;
   startDate?: Date;
   endDate?: Date;
-  status?: StatusType;
+  status?: Status;
   priority?: "Urgent" | "High" | "Medium" | "Low" | "";
   tags?: string;
+}
+
+
+export interface AllTasks {
+  id: number,
+  status?: Status,
+  priority?: Priority
 }

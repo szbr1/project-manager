@@ -2,21 +2,23 @@
 
 import { cn } from "@/lib/utils";
 import { useGetTasksQuery, useUpdateTaskMutation } from "@/store/services/api";
-import { Task as TasksTypes } from "@/types/Api-Types";
-import { CreateTaskInterface, StatusType } from "@/types/types";
+import { Status, Task as TasksTypes } from "@/types/Api-Types";
+import { CreateTaskInterface } from "@/types/types";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useState } from "react";
-import { useDrag, useDrop } from "react-dnd";
+import React, { useMemo, useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
 import { GoComment } from "react-icons/go";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import PopupCard from "./popup-card";
 import ErrorBoundary from "@/components/error-boundary";
+import { TASK_PRIORITY_COLOR, TASK_STATUS, TASK_STATUS_COLOR } from "@/constants/tasks";
+import { useCustomDrag, useCustomDrop } from "@/hooks/Drag-Drop";
 
 // -------------------- MAIN BOARD --------------------
 function Board() {
-  const { id } = useParams(); // fixed typo
+  const { id: projectIdParam } = useParams();     // <-- FIXED NAME
+  const projectId = Number(projectIdParam);       // <-- keeps projectId clear
 
   const [updateTaskStatus] = useUpdateTaskMutation();
 
@@ -24,159 +26,123 @@ function Board() {
     title: "",
     description: "",
     priority: "Medium",
-    status: "To Do",
+    status: Status.ToDo
   });
 
   const [isCreateTaskPopupOpen, setIsCreateTaskPopup] = useState(false);
-
-  const statusArray: StatusType[] = [
-    "Work In Progress",
-    "To Do",
-    "Completed",
-    "Under Review",
-  ];
-
-  const updateTask = ({ id, status }: { id: number; status: StatusType }) => {
-    debugger
-    updateTaskStatus({ id, status });
-  };
 
   const {
     data: tasks,
     isLoading,
     isError,
-  } = useGetTasksQuery({ projectId: id as string });
+  } = useGetTasksQuery({ projectId });      // <-- FIXED
 
-  const crash = (null as any).toString(); 
+  // -------------------- FIXED updateTask --------------------
+  const updateTask = ({ id, status }: { id: number; status: Status }) => {
+    updateTaskStatus({ id, status, projectId });  // <-- FIXED: correct projectId
+  };
 
-  if(isLoading){
-    return <div className="flex justify-center items-center size-full">Loading...</div>
-  }else if(isError){
-    return <div className="flex justify-center items-center size-full">Error While Fetching Date.</div>
+  if (isLoading) {
+    return <div className="flex justify-center items-center size-full">Loading...</div>;
+  } else if (isError) {
+    return <div className="flex justify-center items-center size-full">Error While Fetching Data.</div>;
   }
 
   return (
-
-      <ErrorBoundary>
-    <div>
-
-      <PopupCard
-        buttonText="Create Task"
-        description="Create task and manage it or assign it."
-        title="Create New Task"
-        isPopupOpen={isCreateTaskPopupOpen}
-        taskDetails={currentTask}
-        setTaskDetails={setCurrentTask}
-        createTask={true}
-        setPopupOpen={setIsCreateTaskPopup}
+    <ErrorBoundary>
+      <div>
+        <PopupCard
+          buttonText="Create Task"
+          description="Create task and manage it or assign it."
+          title="Create New Task"
+          isPopupOpen={isCreateTaskPopupOpen}
+          taskDetails={currentTask}
+          setTaskDetails={setCurrentTask}
+          createTask={true}
+          setPopupOpen={setIsCreateTaskPopup}
         />
 
-      <div className="grid grid-col-1 md:grid-cols-2 gap-3 px-4 mt-4">
-        {statusArray.map((status: StatusType) => (
-          <GridColumn
-          key={status}
-          status={status}
-          tasks={tasks ?? []}
-          updateTask={updateTask}
-          setCurrentTask={setCurrentTask}
-          setIsCreateTaskPopup={setIsCreateTaskPopup}
-          />
-        ))}
+        <div className="grid grid-col-1 md:grid-cols-2 gap-3 px-4 mt-4">
+          {TASK_STATUS.map((status: Status) => (
+            <GridColumn
+              key={status}
+              status={status}
+              tasks={tasks ?? []}
+              updateTask={updateTask}
+              setCurrentTask={setCurrentTask}
+              setIsCreateTaskPopup={setIsCreateTaskPopup}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-        </ErrorBoundary>
+    </ErrorBoundary>
   );
 }
 
 // -------------------- GRID COLUMN --------------------
 interface GridColumnProps {
   tasks: TasksTypes[];
-  status: StatusType;
+  status: Status;
   setCurrentTask: React.Dispatch<React.SetStateAction<CreateTaskInterface>>;
-  updateTask: ({ id, status }: { id: number; status: StatusType }) => void;
+  updateTask: ({ id, status }: { id: number; status: Status }) => void;
   setIsCreateTaskPopup: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GridColumn = ({
-  status,
-  tasks,
-  updateTask,
-  setCurrentTask,
-  setIsCreateTaskPopup,
-}: GridColumnProps) => {
-  const [{ isOver }, drop] = useDrop({
-    accept: "tasks",
-    drop: (item: { id: number }) => updateTask({ id: item.id, status }),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  });
+const GridColumn = React.memo(
+  ({ status, tasks, updateTask, setCurrentTask, setIsCreateTaskPopup }: GridColumnProps) => {
+    const [isDrop, drop] = useCustomDrop(status, updateTask);
 
-  const filteredTasks = tasks.filter((task) => task.status === status);
+    const filteredTasks = useMemo(() => {
+      return tasks.filter((task) => task.status === status);
+    }, [tasks, status]);
 
-  const statusColor = {
-    "Work In Progress": "border-green-500",
-    "To Do": "border-fuchsia-500",
-    Completed: "border-indigo-500",
-    "Under Review": "border-amber-500",
-  };
+    return (
+      <div ref={drop}>000000000
+        {/* Header */}
+        <div
+          className={cn(
+            "flex justify-between my-2 py-3 items-center px-2 rounded-md border border-gray-300 border-s-16",
+            TASK_STATUS_COLOR[status]
+          )}
+        >
+          <p>{status}</p>
+          <div className="flex items-center gap-2">
+            <button>
+              <HiOutlineDotsVertical size={20} />
+            </button>
+            <button
+              className="cursor-pointer"
+              onClick={() => {
+                setCurrentTask((prev) => ({ ...prev, status }));
+                setIsCreateTaskPopup(true);
+              }}
+            >
+              <CiSquarePlus size={24} />
+            </button>
+          </div>
+        </div>
 
-  return (
-    <div ref={(instance)=>{
-      drop(instance)
-    }}>
-      {/* Header */}
-      <div
-        className={cn(
-          "flex justify-between my-2 py-3 items-center px-2 rounded-md border border-gray-300 border-s-16",
-          statusColor[status]
-        )}
-      >
-        <p>{status}</p>
-        <div className="flex items-center gap-2">
-          <button>
-            <HiOutlineDotsVertical size={20} />
-          </button>
-          <button
-            className="cursor-pointer"
-            onClick={() => {
-              setCurrentTask((prev) => ({ ...prev, status }));
-              setIsCreateTaskPopup(true);
-            }}
-          >
-            <CiSquarePlus size={24} />
-          </button>
+        {/* Tasks */}
+        <div className="flex flex-col gap-3">
+          {filteredTasks.map((task) => (
+            <Task key={task.id} task={task} />
+          ))}
         </div>
       </div>
-
-      {/* Tasks */}
-      <div className="flex flex-col gap-3">
-        {filteredTasks.map((task) => (
-          <Task key={task.id} task={task} />
-        ))}
-      </div>
-    </div>
-  );
-};
+    );
+  }
+);
+GridColumn.displayName = "GridColumn";
 
 // -------------------- TASK CARD --------------------
-const Task = ({ task }: { task: TasksTypes }) => {
+const Task = React.memo(function Task({ task }: { task: TasksTypes }) {
   const tags = task.tags ? task.tags.split(",") : [];
   const commentCount = task.comments?.length ?? 0;
-
-  const [{ isDragging }, drag] = useDrag({
-    type: "tasks",
-    item: { id: task.id },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
+  const [isDragging, drag] = useCustomDrag(task);
 
   return (
     <div
-      ref={(instance)=>{
-        drag(instance)
-      }}
+      ref={(instance) => drag(instance)}
       className="py-4 border border-gray-300 dark:border-zinc-700 rounded-md px-3"
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
@@ -186,10 +152,7 @@ const Task = ({ task }: { task: TasksTypes }) => {
           <p
             className={cn(
               "py-px px-2 text-xs rounded-full",
-              task.priority === "High" && "bg-amber-300 text-black/50",
-              task.priority === "Low" && "bg-blue-300 text-black",
-              task.priority === "Medium" && "bg-violet-300 text-black",
-              task.priority === "Urgent" && "bg-red-300 text-black"
+              task.priority ? TASK_PRIORITY_COLOR[task.priority] : ""
             )}
           >
             {task.priority}
@@ -267,6 +230,6 @@ const Task = ({ task }: { task: TasksTypes }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Board;
