@@ -18,11 +18,8 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0"
   },
-  "lint-stagged": {
-    "*.{.ts,tsx}": {
-      "eslint": "--fix",
-      "prettier": "--write"
-    }
+  "lint-staged": {
+    "*.{ts,tsx}": ["prettier --write"]
   },
   "dependencies": {
     "exec": "^0.2.1",
