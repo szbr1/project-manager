@@ -8,13 +8,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetAllTasksQuery } from "@/store/services/api";
+import { RTKerror } from "@/utility/rtk-error";
 
 function TasksTable() {
-  const { data: tasks, isLoading, isError } = useGetAllTasksQuery();
+  const { data: tasks, isLoading, isError, error } = useGetAllTasksQuery();
   if (isLoading) {
     return <div className="center size-full">Loading...</div>;
   } else if (isError) {
-    return <div className="center size-full">Error Occured Try again</div>;
+    return <div className="center size-full">{RTKerror(error)}</div>;
   }
 
   if (!tasks) return <div className="center size-full">No Task Found</div>;

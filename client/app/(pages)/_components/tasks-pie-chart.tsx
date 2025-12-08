@@ -17,7 +17,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { useGetAllTasksQuery, useGetProjectsQuery, useGetTasksQuery } from "@/store/services/api"
+import { useGetAllTasksQuery } from "@/store/services/api"
+import { RTKerror } from "@/utility/rtk-error"
 
 export const description = "A pie chart with no separator"
 
@@ -57,11 +58,12 @@ const chartConfig = {
 
 export function TaskPieChart() {
 
-   const {data: tasks, isLoading, isError} = useGetAllTasksQuery({});
+   const {data: tasks, isLoading, isError, error} = useGetAllTasksQuery();
+
    if(isLoading) {
     return <div className="center size-full">Loading...</div>
   }else if(isError){
-     return <div className="center size-full">Error Occured Try again</div>
+     return <div className="center size-full">{RTKerror(error)}</div>
    }
    
    if(!tasks) return <div className="center size-full">No Task Found</div>

@@ -3,10 +3,12 @@
 import { useGetUserTasksQuery } from "@/store/services/api"
 import { Priority } from "@/types/Api-Types"
 import Image from "next/image";
+import SubHeader from "./sub-header";
 
 function PriorityPage({priority}: {priority: Priority}) {
 
-    const {data, isError, isLoading} = useGetUserTasksQuery({userId:2});
+    const {data, isError, isLoading } = useGetUserTasksQuery({userId:2});
+     
 
     if(isLoading){
         return <div className="center size-full">Loading...</div>
@@ -15,12 +17,14 @@ function PriorityPage({priority}: {priority: Priority}) {
     }else if(!data){
         return  <div className="center size-full">Unable to fetch data try again</div>
     }
+  
     const tasks = data.filter(item => item.priority == priority)
     console.log({data, tasks})
 
 
   return (
        <div className="px-3 w-full">
+        
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
             {tasks && tasks.length > 0 ? 
               tasks.map((task) => {

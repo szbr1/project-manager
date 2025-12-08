@@ -39,3 +39,18 @@ export default function RootLayout({
     </html>
   );
 }
+
+
+
+function double(n: number) {
+  return n * 2
+}
+ // Method 1
+test ("double the sum of any number", ()=>{
+  expect(double(2)).toBe(4)
+})
+// Method 2
+test ("double the sum of any number", ()=>{
+  const result = double(2)
+  expect(result).toBe(4)
+})
