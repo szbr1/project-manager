@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import prisma from "../src/lib/db";
 
-
 // Type definitions for JSON data
 interface UserData {
   username: string;
@@ -66,7 +65,6 @@ interface CommentData {
   userId: number;
 }
 
-// Load JSON files from seedData folder - using process.cwd() to get correct path
 const loadJSON = <T>(filename: string): T[] => {
   const filePath = path.join(process.cwd(), "prisma", "seedData", filename);
   const fileContent = fs.readFileSync(filePath, "utf-8");
@@ -109,7 +107,7 @@ async function main() {
     });
   }
 
-  // Seed Users
+  // Seed Users WITHOUT teamId first
   console.log("👥 Seeding users...");
   for (const user of users) {
     await prisma.user.create({
@@ -117,8 +115,17 @@ async function main() {
         username: user.username,
         cognitoId: user.cognitoId,
         profilePictureUrl: user.profilePictureUrl,
-        teamId: user.teamId,
+        // Don't set teamId yet
       },
+    });
+  }
+
+  // Update users with teamId
+  console.log("🔗 Linking users to teams...");
+  for (const user of users) {
+    await prisma.user.update({
+      where: { username: user.username },
+      data: { teamId: user.teamId },
     });
   }
 
