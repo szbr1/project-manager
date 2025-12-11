@@ -56,8 +56,8 @@ model Task {
   status         String?
   priority       String?
   tags           String?
-  startDate      String?
-  dueDate        String?
+  startDate      DateTime?
+  dueDate        DateTime?
   points         Int?
   projectId      Int?
   authorUserId   Int?
